@@ -1,0 +1,67 @@
+.Container {
+	margin: auto;
+	width: 800px;
+	height: 800px;
+	display: flex;
+	flex-direction: column;
+}
+
+.ranuras {
+	width: 100%;
+	height: 100px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.tablero {
+	width: 100%;
+	height: 650px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: blue;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 0px solid #000000;
+}
+
+.agujero {
+	margin: auto;
+	width: 90px;
+	height: 90px;
+	background-color: #fff;
+	border-radius: 100%;
+	-webkit-box-shadow: inset 7px -7px 20px -9px rgba(0, 0, 0, 1);
+	-moz-box-shadow: inset 7px -7px 20px -9px rgba(0, 0, 0, 1);
+	box-shadow: inset 7px -7px 20px -9px rgba(0, 0, 0, 1);
+}
+
+.redCoin {
+	margin: auto;
+	width: 90px;
+	height: 90px;
+	background-color: red;
+	border-radius: 100%;
+}
+
+.yellowCoin {
+	margin: auto;
+	width: 90px;
+	height: 90px;
+	background-color: yellow;
+	border-radius: 100%;
+}
+
+.ranura {
+	border-left: solid 1px #000;
+	border-right: solid 1px #000;
+}
+
+.ranura:hover {
+	-webkit-box-shadow: inset 0px -25px 59px -37px rgba(218, 245, 14, 1);
+	-moz-box-shadow: inset 0px -25px 59px -37px rgba(218, 245, 14, 1);
+	box-shadow: inset 0px -25px 59px -37px rgba(218, 245, 14, 1);
+}
