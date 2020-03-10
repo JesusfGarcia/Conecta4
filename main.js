@@ -8,9 +8,10 @@ let column7 = [0, 0, 0, 0, 0, 0]
 
 let turn = true
 let isAnimating = false
+let victory = false
 
 dropCoin = (ranura) => {
-	if (!isAnimating) {
+	if (!isAnimating && !victory) {
 		isAnimating = true
 		switch (ranura) {
 			case 'r1':
@@ -82,75 +83,117 @@ animationTimers = (id, time, last, column, space) => {
 	} else {
 		setTimeout(() => {
 			document.getElementById(`${id}`).className = clase
-			checkWinner(space, column)
+			checkWinner(space, column, id)
 			changeTurn()
 			isAnimating = false
 		}, time)
 	}
 }
 
-checkWinner = (id, column) => {
+checkWinner = (id, column, casilla) => {
 	let array = [column1, column2, column3, column4, column5, column6, column7]
 	checkWinnerVertical(array, column - 1)
 	checkWinnerHorizontal(array, id)
-	checkDiagonals(array, id, column - 1)
+	checkDiagonals(array, id, column - 1, casilla)
 }
 
-checkDiagonals = (array, height, column) => {
+checkDiagonals = (array, height, column, casilla) => {
 	let lD = height - column
 	switch (lD) {
 		case 2:
-			if (
-				array[0][2] === turn &&
-				array[1][3] === turn &&
-				array[2][4] === turn &&
-				array[3][5] === turn
-			) {
-				alert('gano Diagonalmente Xd')
-			}
+			checkWinnerDiagonal(1, 0, 2, array)
 			break
 		case 1:
-			for (let i = 0; i < 2; i++) {
-				if (
-					array[i][i + 1] === turn &&
-					array[i + 1][i + 2] === turn &&
-					array[i + 2][i + 3] === turn &&
-					array[i + 3][i + 4] === turn
-				) {
-					alert('gano Diagonalmente Xd')
-				}
-			}
+			checkWinnerDiagonal(2, 0, 1, array)
 			break
 		case 0:
-			for (let i = 0; i < 3; i++) {
-				if (
-					array[i][i] === turn &&
-					array[i + 1][i + 1] === turn &&
-					array[i + 2][i + 2] === turn &&
-					array[i + 3][i + 3] === turn
-				) {
-					alert('gano Diagonalmente Xd')
-				}
-			}
+			checkWinnerDiagonal(3, 0, 0, array)
 			break
 		case -1:
-			for (let i = 0; i < 3; i++) {
-				if (
-					array[i + 1][i] === turn &&
-					array[i + 2][i + 1] === turn &&
-					array[i + 3][i + 2] === turn &&
-					array[i + 4][i + 3] === turn
-				) {
-					alert('gano Diagonalmente Xd')
-				}
-			}
+			checkWinnerDiagonal(3, 1, 0, array)
 			break
 		case -2:
+			checkWinnerDiagonal(2, 2, 0, array)
 			break
 		case -3:
+			checkWinnerDiagonal(1, 3, 0, array)
 			break
 		default:
 			break
+	}
+	checkCasilla(casilla, array)
+}
+
+checkCasilla = (casilla, array) => {
+	if (casilla == 39 || casilla === 33 || casilla === 27 || casilla === 21) {
+		return checkWinnerAnotherDiagonal(1, 3, 5, array)
+	}
+	if (
+		casilla === 38 ||
+		casilla === 32 ||
+		casilla === 26 ||
+		casilla === 20 ||
+		casilla === 14
+	) {
+		return checkWinnerAnotherDiagonal(2, 2, 5, array)
+	}
+	if (
+		casilla === 37 ||
+		casilla === 31 ||
+		casilla === 25 ||
+		casilla === 19 ||
+		casilla === 13 ||
+		casilla === 7
+	) {
+		return checkWinnerAnotherDiagonal(3, 1, 5, array)
+	}
+	if (
+		casilla === 36 ||
+		casilla === 30 ||
+		casilla === 24 ||
+		casilla === 18 ||
+		casilla === 12 ||
+		casilla === 6
+	) {
+		return checkWinnerAnotherDiagonal(3, 0, 5, array)
+	}
+	if (
+		casilla === 29 ||
+		casilla === 23 ||
+		casilla === 17 ||
+		casilla === 11 ||
+		casilla === 5
+	) {
+		return checkWinnerAnotherDiagonal(2, 0, 4, array)
+	}
+	if (casilla === 22 || casilla === 16 || casilla === 10 || casilla === 4) {
+		return checkWinnerAnotherDiagonal(1, 0, 3, array)
+	}
+}
+
+checkWinnerAnotherDiagonal = (repeticiones, columna, renglon, array) => {
+	for (let i = 0; i < repeticiones; i++) {
+		if (
+			array[i + columna][i + renglon] === turn &&
+			array[i + columna + 1][i + renglon - 1] === turn &&
+			array[i + columna + 2][i + renglon - 2] === turn &&
+			array[i + columna + 3][i + renglon - 3] === turn
+		) {
+			showWinner()
+		}
+	}
+}
+
+checkWinnerDiagonal = (repeticiones, columna, renglon, array) => {
+	for (let i = 0; i < repeticiones; i++) {
+		if (
+			array[i + columna][i + renglon] === turn &&
+			array[i + columna + 1][i + renglon + 1] === turn &&
+			array[i + columna + 2][i + renglon + 2] === turn &&
+			array[i + columna + 3][i + renglon + 3] === turn
+		) {
+			showWinner()
+		}
 	}
 }
 
@@ -162,7 +205,7 @@ checkWinnerVertical = (array, column) => {
 			array[column][i + 2] === turn &&
 			array[column][i + 3] === turn
 		) {
-			alert('gano horizontalmente')
+			showWinner()
 		}
 	}
 }
@@ -175,11 +218,41 @@ checkWinnerHorizontal = (array, id) => {
 			array[i + 2][id] === turn &&
 			array[i + 3][id] === turn
 		) {
-			alert('Gano Verticalmente')
+			showWinner()
 		}
 	}
 }
 
 changeTurn = () => {
+	if (turn === true) {
+		document.getElementById('r1').className = 'ranuraYellow'
+		document.getElementById('r2').className = 'ranuraYellow'
+		document.getElementById('r3').className = 'ranuraYellow'
+		document.getElementById('r4').className = 'ranuraYellow'
+		document.getElementById('r5').className = 'ranuraYellow'
+		document.getElementById('r6').className = 'ranuraYellow'
+		document.getElementById('r7').className = 'ranuraYellow'
+	} else {
+		document.getElementById('r1').className = 'ranuraRed'
+		document.getElementById('r2').className = 'ranuraRed'
+		document.getElementById('r3').className = 'ranuraRed'
+		document.getElementById('r4').className = 'ranuraRed'
+		document.getElementById('r5').className = 'ranuraRed'
+		document.getElementById('r6').className = 'ranuraRed'
+		document.getElementById('r7').className = 'ranuraRed'
+	}
+
 	turn = !turn
+}
+
+showWinner = () => {
+	label = document.getElementById('spanWinner')
+	turn === true
+		? ((label.innerText = 'Red Wins'), (label.style.color = 'red'))
+		: ((label.innerText = 'Yellow Wins'), (label.style.color = 'yellow'))
+	victory = true
+}
+
+reload = () => {
+	history.go('/')
 }
