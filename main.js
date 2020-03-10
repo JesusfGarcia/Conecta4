@@ -9,7 +9,7 @@ let column7 = [0, 0, 0, 0, 0, 0]
 let turn = true
 let isAnimating = false
 let victory = false
-
+let counter = 0
 dropCoin = (ranura) => {
 	if (!isAnimating && !victory) {
 		isAnimating = true
@@ -95,6 +95,11 @@ checkWinner = (id, column, casilla) => {
 	checkWinnerVertical(array, column - 1)
 	checkWinnerHorizontal(array, id)
 	checkDiagonals(array, id, column - 1, casilla)
+	counter++
+	if (counter == 42 && victory === false) {
+		victory = true
+		document.getElementById('spanWinner').innerText = 'Empate'
+	}
 }
 
 checkDiagonals = (array, height, column, casilla) => {
@@ -249,7 +254,7 @@ showWinner = () => {
 	label = document.getElementById('spanWinner')
 	turn === true
 		? ((label.innerText = 'Red Wins'), (label.style.color = 'red'))
-		: ((label.innerText = 'Yellow Wins'), (label.style.color = 'yellow'))
+		: ((label.innerText = 'Yellow Wins'), (label.style.color = '#000'))
 	victory = true
 }
 
