@@ -160,6 +160,7 @@ checkCasilla = (casilla, array) => {
 		casilla === 12 ||
 		casilla === 6
 	) {
+		console.log('hola')
 		return checkWinnerAnotherDiagonal(3, 0, 5, array)
 	}
 	if (
@@ -179,10 +180,14 @@ checkCasilla = (casilla, array) => {
 checkWinnerAnotherDiagonal = (repeticiones, columna, renglon, array) => {
 	for (let i = 0; i < repeticiones; i++) {
 		if (
-			array[i + columna][i + renglon] === turn &&
-			array[i + columna + 1][i + renglon - 1] === turn &&
-			array[i + columna + 2][i + renglon - 2] === turn &&
-			array[i + columna + 3][i + renglon - 3] === turn
+			//05  14  23
+			array[i + columna][renglon -i] === turn &&
+			//14 23
+			array[i + columna + 1][(renglon-i) - 1] === turn &&
+			//
+			array[i + columna + 2][(renglon-i) - 2] === turn &&
+			//
+			array[i + columna + 3][(renglon-i) - 3] === turn
 		) {
 			showWinner()
 		}

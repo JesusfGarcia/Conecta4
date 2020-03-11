@@ -1,7 +1,7 @@
 .Container {
 	margin: auto;
-	width: 800px;
-	height: 800px;
+	width: 600px;
+	height: 600px;
 	display: flex;
 	flex-direction: column;
 }
@@ -9,7 +9,6 @@
 body {
 	background: cornsilk;
 	height: 100vh;
-	overflow: hidden;
 }
 
 .ranuras {
@@ -21,7 +20,7 @@ body {
 
 .tablero {
 	width: 100%;
-	height: 650px;
+	height: 600px;
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	grid-template-rows: repeat(6, 1fr);
@@ -39,8 +38,8 @@ body {
 
 .agujero {
 	margin: auto;
-	width: 90px;
-	height: 90px;
+	width: 60px;
+	height: 60px;
 	background-color: cornsilk;
 	border-radius: 100%;
 	-webkit-box-shadow: inset 7px -7px 20px -9px rgba(0, 0, 0, 1);
@@ -50,16 +49,16 @@ body {
 
 .redCoin {
 	margin: auto;
-	width: 90px;
-	height: 90px;
+	width: 60px;
+	height: 60px;
 	background-color: red;
 	border-radius: 100%;
 }
 
 .yellowCoin {
 	margin: auto;
-	width: 90px;
-	height: 90px;
+	width: 60px;
+	height: 60px;
 	background-color: rgb(231, 216, 7);
 	border-radius: 100%;
 }
@@ -106,8 +105,8 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .spanTitulo {
